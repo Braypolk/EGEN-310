@@ -1,0 +1,8 @@
+tank controller
+LEFT	left track	3	SLIDER	Y Axis	0	1.0	0.0
+RIGHT	right track	3	SLIDER	Y Rotation	0	1.0	0.0
+PIVOT	pivot	3	SLIDER	Z Axis	0	1.0	0.0
+NORMAL	normal speed	1	BUTTON	Button 0	0	0.0	0.0
+SLOW	slow speed	1	BUTTON	Button 2	0	0.0	0.0
+SLOWEST	slowest speed	1	BUTTON	Button 1	0	0.0	0.0
+STOP	stop motors	1	BUTTON	Button 4	0	0.0	0.0
