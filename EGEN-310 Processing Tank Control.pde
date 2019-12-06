@@ -1,17 +1,19 @@
+//import necessary libraries
 import org.gamecontrolplus.gui.*;
 import org.gamecontrolplus.*;
 import net.java.games.input.*;
 import processing.serial.*;
 
+//initialize variables
 Serial myPort;
 ControlIO control;
 ControlDevice stick;
 float left, right, pivot;
-//may need to change to int, check if arduino is recieving correct values
 short leftSend, rightSend, pivotSend, mult, leftDir, rightDir, pivotDir;
 boolean normal, slow, slowest, STOP;
 
 public void setup() {
+  //start program and serial communication
   size(400, 400);
   myPort = new Serial(this, "COM3", 9600); // Starts the serial communication between hc05 and computer
   myPort.bufferUntil('\n');
@@ -40,6 +42,7 @@ public void getUserInput() {
 
 //from user input, multiply values to get a value from 0-255
 public void act(){
+  //stop all motors
   if(STOP){
     left = 0;
     right = 0;
@@ -56,9 +59,10 @@ public void act(){
     mult = 255;
   }
   
+  //send to new function to each value is correctly set
+  //each function sets direction and speed for specified motor
   left();
   right();
-  //println(right+", "+rightDir);
   pivot();
 }
 
@@ -115,15 +119,15 @@ public void pivot(){
 }
 
 public void draw() {
-  //myPort.clear();
   getUserInput();
   act();
 
+  //convert from long to short in order to be converted again
   leftSend = (short)left;
   rightSend = (short)right;
   pivotSend = (short)pivot;
   
+  //send data to hc-05 as a string
   myPort.write(str(leftSend) + "," + str(leftDir)+"," + str(rightSend) + ","+str(rightDir)+","+str(pivotSend)+","+str(pivotDir)+"\n");
-  //println(str(leftSend) + "," + str(leftDir)+"," + str(rightSend) + ","+str(rightDir)+","+str(pivotSend)+","+str(pivotDir)+"\n");
   println(left+" "+right+" "+ pivot);
 }
